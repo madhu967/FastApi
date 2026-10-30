@@ -46,4 +46,4 @@ def delete_task(task_id:int,db:Session):
         return HTTPException(status_code=404,detail="Task not found")
     db.delete(one_task)
     db.commit()
-    return {"status": "Task deleted successfully"}
+    return {"status": "Task deleted successfully","data":one_task}
