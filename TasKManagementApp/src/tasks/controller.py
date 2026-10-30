@@ -9,3 +9,8 @@ def create_task(body: TaskSchema,db: Session):
     db.commit()
     db.refresh(new_task)
     return {"status": "Task created successfully","data":new_task}
+
+
+def get_tasks(db:Session):
+    tasks=db.query(TaskModel).all()
+    return {"status": "Tasks retrieved successfully","data":tasks}
