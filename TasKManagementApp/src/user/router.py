@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends ,status
+from fastapi import APIRouter, Depends, Request ,status
 from src.utils.db import get_db
 from src.user import controller
 from src.user.dtos import LoginSchema, UserSchema,UserResponseSchema
@@ -14,3 +14,7 @@ def register_user(body:UserSchema,db:Session=Depends(get_db)):
 @user_routes.post("/login",status_code=status.HTTP_200_OK)
 def login_user(body:LoginSchema,db:Session=Depends(get_db)):
     return controller.login_user(body,db)
+
+@user_routes.get("/is_authenticated",status_code=status.HTTP_200_OK,response_model=UserResponseSchema)
+def is_authenticated(request:Request,db:Session=Depends(get_db)):
+    return controller.is_authenticated(request,db)
